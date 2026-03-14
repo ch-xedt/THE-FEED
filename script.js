@@ -1,3 +1,7 @@
+if (!window.location.search.includes('v=')) {
+    window.location.replace(window.location.href + '?v=' + Date.now());
+}
+
 function updateDate() {
     const now = new Date();
     const day = now.getDate();

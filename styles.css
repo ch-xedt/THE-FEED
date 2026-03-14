@@ -85,7 +85,13 @@ body::before {
     font-style: italic;
     user-select: none;
 }
-
+.alerttext a {
+    color: inherit;
+    text-decoration: none;
+}
+.alerttext a:visited {
+    color: var(--muted);
+}
 
 .space1 { height: 52px; }
 

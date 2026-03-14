@@ -13,8 +13,10 @@
    ██║   ██║  ██║███████╗    ██║     ███████╗███████╗██████╔╝
    ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝     ╚══════╝╚══════╝╚═════╝ 
 '  
-<pre>                                                                                                                                                         
+</pre>                                                                                                                                                         
+
 ---
+
 <br>
 
 THE FEED is a personal news dashboard that pulls live headlines from independent sources and presents them in a single, distraction-free interface.<br>

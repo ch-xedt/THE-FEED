@@ -30,7 +30,7 @@ function relTime(dateStr) {
     const date = new Date(dateStr);
     if (isNaN(date)) return '';
     const diff = Math.floor((Date.now() - date) / 1000);
-    if (diff < 60)    return 'GERADE EBEN';
+    if (diff < 300)    return 'GERADE EBEN';
     if (diff < 3600)  return `VOR ${Math.floor(diff / 60)} MIN`;
     if (diff < 86400) return `VOR ${Math.floor(diff / 3600)} STD`;
     return date.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: '2-digit' });

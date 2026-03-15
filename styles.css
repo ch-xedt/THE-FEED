@@ -1,15 +1,39 @@
 :root {
     --bg: #0e0e0e;
     --surface: #141414;
+    --boxhover: #181818;
     --border: #222;
     --text: #e1e1e1;
+    --sectext: #9a9a9a;
     --muted: #5a5650;
     --accent: #c8501a;
+    --scrollbar: #333;
+    --sk:  rgba(255,255,255,0.1);
+    --highlight-color: #e1b29d;
     --serif: 'Libre Baskerville', Georgia, serif;
     --mono: 'JetBrains Mono', monospace;
 }
 
+html.light {
+    --bg:      #e8e8e8;
+    --surface: #edecec;
+    --boxhover: #f6ebfe;
+    --border:  #bebebe;
+    --text:    #1a1a1a;
+    --sectext: #4e4e4e;
+    --muted:   #828282;
+    --accent:  #9900cc;
+    --scrollbar: #b0b0b0;
+    --sk:  rgba(0, 0, 0, 0.11);
+    --highlight-color: #f4cafe;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+::selection {
+    background-color: var(--highlight-color);
+    color: #1f1e1e;
+}
 
 html, body {
     background-color: var(--bg);
@@ -62,12 +86,27 @@ body::before {
     color: var(--text);
     user-select: none;
 }
+
 .headertext2 {
     font-family: var(--serif);
     font-size: 0.9rem;
-    color: #9a9a9a;
+    color: var(--sectext);
     user-select: none;
     letter-spacing: 0.05em;
+}
+#theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 0.8rem;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+#theme-toggle:hover {
+    border-color: var(--border-h);
+    color: var(--text);
 }
 
 
@@ -131,11 +170,11 @@ body::before {
     padding-bottom: 6px;
     padding-top: 6px;
     scrollbar-width: thin;
-    scrollbar-color: #333 transparent;
+    scrollbar-color: var(--scrollbar) transparent;
 }
 .feed::-webkit-scrollbar { height: 3px; }
 .feed::-webkit-scrollbar-track { background: transparent; }
-.feed::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+.feed::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 2px; }
 
 
 .nachrichtenbox {
@@ -166,7 +205,7 @@ body::before {
 }
 .nachrichtenbox:hover {
     border-color: #333;
-    background: #181818;
+    background: var(--boxhover);
     transform: translateY(-4px);
 }
 .nachrichtenbox:hover::before { opacity: 1; }
@@ -202,7 +241,7 @@ body::before {
     padding: 14px;
 }
 .sk {
-    background: rgba(255,255,255,0.05);
+    background: var(--sk);
     border-radius: 3px;
     margin-bottom: 7px;
     animation: pulse 1.5s ease-in-out infinite;
@@ -248,5 +287,10 @@ body::before {
     }
     .RssSection {
         margin-bottom: 32px;
+    }
+    #theme-toggle {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
     }
 }

@@ -31,7 +31,8 @@ There is no algorithm deciding what you see first. There is no engagement optimi
 <pre>No algorithm       Feeds sorted strictly by publication time </pre>
 <pre>Responsive         Works on desktop, tablet and mobile </pre>
 <pre>Live data          Every visit fetches fresh headlines </pre>
-<pre>Skeleton loading   Smooth placeholder animation while feeds load </pre>
+<pre>Theme support      Toggle between light and dark mode </pre>
+
 
 &nbsp;
 

@@ -2,6 +2,15 @@ if (!window.location.search.includes('v=')) {
     window.location.replace(window.location.href + '?v=' + Date.now());
 }
 
+function toggleTheme() {
+    const isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+
+if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
+}
+
 function updateDate() {
     const now = new Date();
     const day = now.getDate();

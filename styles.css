@@ -218,6 +218,7 @@ body::before {
     /* Titel auf 3 Zeilen begrenzen */
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

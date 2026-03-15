@@ -1,7 +1,3 @@
-if (!window.location.search.includes('v=')) {
-    window.location.replace(window.location.href + '?v=' + Date.now());
-}
-
 function toggleTheme() {
     const isLight = document.documentElement.classList.toggle('light');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
@@ -72,7 +68,7 @@ function buildSection(src, idx) {
 async function loadFeed(src, idx) {
     const feedElement = document.getElementById(`feed-${idx}`);
     try {
-        const res  = await fetch(PROXY + encodeURIComponent(src.url));
+        const res = await fetch(PROXY + encodeURIComponent(src.url) + '&_=' + Date.now()*1.5, { cache: 'no-store' });
         const data = await res.json();
         if (data.status !== 'ok' || !data.items?.length) throw new Error();
 

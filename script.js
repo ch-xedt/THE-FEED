@@ -25,9 +25,11 @@ const SOURCES = [
     { label: 'ZDF',             tag: 'DE · INT · CENTER-LEFT',       url: 'https://www.zdf.de/rss/zdf/nachrichten' },
     { label: 'Deutsche Welle',  tag: 'DE · INT · CENTER-LEFT',       url: 'https://rss.dw.com/rdf/rss-de-all' },
     { label: 'Deutschlandfunk', tag: 'DE · INT · CENTER',            url: 'https://www.deutschlandfunk.de/die-nachrichten.353.de.rss' },
+    { label: 'France24',        tag: 'FR · INT · CENTER',            url: 'https://www.france24.com/en/rss' },
     { label: 'BBC World',       tag: 'EN · INT · CENTER',            url: 'https://feeds.bbci.co.uk/news/world/rss.xml' },
     { label: 'The Guardian',    tag: 'EN · INT · LEFT',              url: 'https://www.theguardian.com/world/rss' },
     { label: 'NPR World',       tag: 'US · INT · CENTER-LEFT',       url: 'https://feeds.npr.org/1004/rss.xml' },
+    { label: 'ABC News International', tag: 'US · INT · CENTER', url: 'https://feeds.abcnews.com/abcnews/internationalheadlines' },
 ];
 
 function relTime(dateStr) {

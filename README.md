@@ -29,9 +29,9 @@ There is no algorithm deciding what you see first. There is no engagement optimi
 <pre>No backend         Runs entirely in the browser </pre>
 <pre>No tracking        Zero cookies, zero analytics, zero data collection </pre>
 <pre>No algorithm       Feeds sorted strictly by publication time </pre>
-<pre>Responsive         Works on desktop, tablet and mobile </pre>
+<pre>Responsive         Works seamlessly on desktop, tablet and mobile </pre>
 <pre>Live data          Every visit fetches fresh headlines </pre>
-<pre>Theme support      Toggle between light and dark mode </pre>
+<pre>Theme support      Toggle between stunning light and dark mode </pre>
 
 
 &nbsp;

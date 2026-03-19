@@ -12,8 +12,8 @@ function updateDate() {
     const day = now.getDate();
     const month = now.toLocaleDateString('de-DE', { month: 'long' });
     const year = now.getFullYear();
-    document.getElementById('currentDate').innerHTML =
-        `${day}&thinsp;·&thinsp;${month}&thinsp;/&thinsp;${year}`;
+    document.getElementById('currentDate').innerHTML = `${day}&thinsp;·&thinsp;${month}&thinsp;/&thinsp;${year}`;
+    document.getElementById('github-link').innerHTML = `@ch-xedt ${year}`;
 }
 
 updateDate();
@@ -86,7 +86,7 @@ async function loadFeed(src, idx) {
     } catch {
         feedElement.innerHTML = `
             <div class="nachrichtenbox" style="justify-content:center;align-items:center;color:var(--muted);font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;">
-                FEED NICHT ERREICHBAR
+                FEED NICHT ERREICHBAR <br> (Neu laden oder @ch-xedt kontaktieren)
             </div>`;
     }
 }

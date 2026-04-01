@@ -1,7 +1,7 @@
 :root {
     --bg: #0e0e0e;
     --surface: #141414;
-    --boxhover: #181818;
+    --boxhover: #1d1d1d;
     --border: #222;
     --text: #e1e1e1;
     --sectext: #9a9a9a;
@@ -17,12 +17,12 @@
 html.light {
     --bg:      #e8e8e8;
     --surface: #edecec;
-    --boxhover: #f6ebfe;
+    --boxhover: #f3e6fc;
     --border:  #bebebe;
     --text:    #1a1a1a;
     --sectext: #4e4e4e;
     --muted:   #828282;
-    --accent:  #9900cc;
+    --accent:  #9f01d3;
     --scrollbar: #b0b0b0;
     --sk:  rgba(0, 0, 0, 0.11);
     --highlight-color: #f4cafe;

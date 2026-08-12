@@ -24,6 +24,7 @@
                     <div class="headertext1">THE<span class="dot">•</span>FEED</div>
                     <div style="display:flex; align-items:center; gap:10px;">                    
                         <div class="headertext2" id="currentDate"></div>
+                        <button id="settings-toggle" onclick="openSettings()" title="Einstellungen">⚙</button>
                         <button id="theme-toggle" onclick="toggleTheme()">¶</button>
                     </div>
                 </div>
@@ -36,7 +37,54 @@
                 <div id="feeds"></div>
             </div>
         </div>
-    </body>
 
-    <script src="script.js"></script>
+        <div id="settings-overlay" class="settings-overlay" onclick="handleOverlayClick(event)">
+            <div class="settings-dialog">
+                <div class="settings-header">
+                    <span class="settings-title">EINSTELLUNGEN</span>
+                    <button class="settings-close" onclick="closeSettings()">✕</button>
+                </div>
+
+                <div class="settings-section">
+                    <div class="settings-section-label">QUELLEN</div>
+                    <div id="source-toggles" class="source-list"></div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="settings-section-label">EIGENEN FEED HINZUFÜGEN</div>
+                    <div class="custom-feed-form">
+                        <input type="text" id="custom-label" class="settings-input" placeholder="Name (z.B. Reuters)">
+                        <div class="input-with-btn">
+                            <input type="text" id="custom-tag" class="settings-input" placeholder="Tag (z.B. EN · INT · CENTER)">
+                            <button type="button" id="insert-dot-btn" class="insert-dot-btn" title="Punkt einfügen" onclick="insertDot()">•</button>
+                        </div>
+                        <input type="text" id="custom-url" class="settings-input" placeholder="RSS-URL">
+                        <button class="settings-add-btn" onclick="addCustomFeed()">HINZUFÜGEN</button>
+                        <div id="add-feed-msg" class="add-feed-msg"></div>
+                    </div>
+                    <div id="custom-feed-list" class="custom-feed-list"></div>
+                </div>
+
+                <div class="settings-section danger-zone">
+                    <div class="settings-section-label">GEFAHRENZONE</div>
+                    <button class="settings-reset-btn" onclick="openResetConfirm()">ALLES ZURÜCKSETZEN</button>
+                    <div class="reset-hint">Setzt alle Einstellungen, Quellen und Custom Feeds auf Standard zurück.</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="confirm-overlay" class="confirm-overlay" onclick="handleConfirmOverlayClick(event)">
+            <div class="confirm-dialog">
+                <div class="confirm-icon">⚠</div>
+                <div class="confirm-title" id="confirm-title">BESTÄTIGUNG</div>
+                <div class="confirm-message" id="confirm-message">Möchtest du diese Aktion wirklich durchführen?</div>
+                <div class="confirm-buttons">
+                    <button class="confirm-btn cancel" onclick="closeConfirm()">ABBRECHEN</button>
+                    <button class="confirm-btn confirm" id="confirm-action-btn">BESTÄTIGEN</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
 </html>

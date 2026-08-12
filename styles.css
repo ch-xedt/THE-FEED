@@ -605,36 +605,74 @@ body::before {
     }
 }
 
-.danger-zone {
+.about-section {
     border-bottom: none;
 }
 
-.settings-reset-btn {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    background: none;
-    border: 1px solid #e05555;
-    color: #e05555;
-    border-radius: 4px;
-    padding: 8px;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    width: 100%;
+.about-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
 }
-.settings-reset-btn:hover {
-    background: #e05555;
-    color: var(--bg);
+.about-row:last-of-type {
+    border-bottom: none;
 }
 
-.reset-hint {
+.about-label {
     font-family: var(--mono);
     font-size: 0.55rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.18em;
     color: var(--muted);
-    margin-top: 8px;
+}
+
+.about-value {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+}
+
+.about-footer {
+    font-family: var(--serif);
+    font-size: 0.72rem;
+    font-style: italic;
+    color: var(--muted);
     text-align: center;
-    line-height: 1.4;
+    margin-top: 14px;
+    line-height: 1.5;
+}
+
+.titleRSS {
+    position: relative;
+}
+
+.section-delete-btn {
+    margin-left: auto;
+    background: none;
+    border: 1px solid transparent;
+    color: var(--muted);
+    font-size: 0.65rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 3px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color 0.15s, border-color 0.15s, opacity 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    padding: 0;
+    line-height: 1;
+}
+.RssSection:hover .section-delete-btn {
+    opacity: 1;
+}
+.section-delete-btn:hover {
+    color: #e05555;
+    border-color: #e05555;
 }
 
 .confirm-overlay {

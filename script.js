@@ -1,3 +1,14 @@
+const VERSION = '1.1.1';
+const LAST_UPDATE = '12.08.2026';
+
+function setAboutInfo() {
+    const vEl = document.getElementById('about-version');
+    const dEl = document.getElementById('about-date');
+    if (vEl) vEl.textContent = VERSION;
+    if (dEl) dEl.textContent = LAST_UPDATE;
+}
+setAboutInfo();
+
 function toggleTheme() {
     const isLight = document.documentElement.classList.toggle('light');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
@@ -41,15 +52,16 @@ function loadState() {
 function saveState() {
     localStorage.setItem('feedState', JSON.stringify({
         order: state.order,
-        disabled: state.disabled,    
-        custom: state.custom          
+        disabled: [...state.disabled],
+        custom: state.custom
     }));
 }
 
 const savedState = loadState();
+const savedDisabled = Array.isArray(savedState?.disabled) ? savedState.disabled : [];
 const state = {
     order: savedState?.order || DEFAULT_SOURCES.map(s => s.url),
-    disabled: new Set(savedState?.disabled || []),
+    disabled: new Set(savedDisabled),
     custom: savedState?.custom || [],
 };
 
@@ -119,11 +131,57 @@ function buildSection(src, idx) {
             <span class="source-label">${escapeHtml(src.label)}</span>
             <span class="dot">•</span>
             <span>${escapeHtml(src.tag)}</span>
+            <button class="section-delete-btn" data-url="${escapeHtml(src.url)}" title="${src.isCustom ? 'Feed löschen' : 'Feed ausblenden'}">✕</button>
         </div>
         <div class="feed" id="feed-${idx}">${skeletons()}</div>
     `;
     document.getElementById('feeds').appendChild(section);
     setupDragEvents(section);
+
+    const delBtn = section.querySelector('.section-delete-btn');
+    if (delBtn) {
+        delBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handleSectionDelete(src.url);
+        });
+    }
+}
+
+function handleSectionDelete(url) {
+    const map = getAllSources();
+    const src = map[url];
+    if (!src) return;
+
+    if (src.isCustom) {
+        openConfirm(
+            'FEED LÖSCHEN?',
+            `Möchtest du den Custom-Feed „${src.label}" wirklich dauerhaft löschen?`,
+            () => {
+                state.custom = state.custom.filter(s => s.url !== url);
+                state.order = state.order.filter(u => u !== url);
+                state.disabled.delete(url);
+                saveState();
+                renderAllFeeds();
+                if (document.getElementById('settings-overlay').classList.contains('open')) {
+                    renderSourceToggles();
+                    renderCustomFeedList();
+                }
+            }
+        );
+    } else {
+        openConfirm(
+            'FEED AUSBLENDEN?',
+            `Möchtest du „${src.label}" ausblenden? Du kannst es in den Einstellungen wieder aktivieren.`,
+            () => {
+                state.disabled.add(url);
+                saveState();
+                renderAllFeeds();
+                if (document.getElementById('settings-overlay').classList.contains('open')) {
+                    renderSourceToggles();
+                }
+            }
+        );
+    }
 }
 
 async function loadFeed(src, idx) {
@@ -203,6 +261,7 @@ function setupDragEvents(el) {
 function openSettings() {
     renderSourceToggles();
     renderCustomFeedList();
+    setAboutInfo();
     document.getElementById('settings-overlay').classList.add('open');
 }
 
@@ -218,7 +277,7 @@ function handleOverlayClick(e) {
 function renderSourceToggles() {
     const container = document.getElementById('source-toggles');
     const map = getAllSources();
- 
+
     const allUrls = [...state.order].filter(u => map[u]);
 
     container.innerHTML = allUrls.map(url => {
@@ -275,7 +334,6 @@ function addCustomFeed() {
         return;
     }
 
-    // Duplikate überprüfen
     const allUrls = [...DEFAULT_SOURCES.map(s => s.url), ...state.custom.map(s => s.url)];
     if (allUrls.includes(url)) {
         showMsg(msg, 'Dieser Feed ist bereits vorhanden.', 'error');
@@ -298,16 +356,18 @@ function addCustomFeed() {
 function removeCustomFeed(url) {
     const map = getAllSources();
     const src = map[url];
-    openRemoveConfirm(url, src?.label);
-}
-
-function removeCustomFeedDirect(url) {
-    state.custom = state.custom.filter(s => s.url !== url);
-    state.order = state.order.filter(u => u !== url);
-    state.disabled.delete(url);
-    saveState();
-    renderSourceToggles();
-    renderCustomFeedList();
+    openConfirm(
+        'FEED LÖSCHEN?',
+        `Möchtest du den Custom-Feed „${src?.label || 'diesen Feed'}" wirklich dauerhaft löschen?`,
+        () => {
+            state.custom = state.custom.filter(s => s.url !== url);
+            state.order = state.order.filter(u => u !== url);
+            state.disabled.delete(url);
+            saveState();
+            renderSourceToggles();
+            renderCustomFeedList();
+        }
+    );
 }
 
 function renderCustomFeedList() {
@@ -362,33 +422,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function openResetConfirm() {
-    openConfirm(
-        'ALLES ZURÜCKSETZEN?',
-        'Alle Custom Feeds werden gelöscht und alle Einstellungen auf Standard zurückgesetzt. Dies kann nicht rückgängig gemacht werden.',
-        resetAll
-    );
-}
-
-function resetAll() {
-    localStorage.removeItem('feedState');
-    state.order = DEFAULT_SOURCES.map(s => s.url);
-    state.disabled = new Set();
-    state.custom = [];
-    saveState();
-    renderSourceToggles();
-    renderCustomFeedList();
-    renderAllFeeds();
-    closeSettings();
-}
-
-function openRemoveConfirm(url, label) {
-    openConfirm(
-        'FEED LÖSCHEN?',
-        `Möchtest du „${label || 'den Feed'}" wirklich löschen?`,
-        () => removeCustomFeedDirect(url)
-    );
-}
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (document.getElementById('confirm-overlay').classList.contains('open')) {
+            closeConfirm();
+        } else if (document.getElementById('settings-overlay').classList.contains('open')) {
+            closeSettings();
+        }
+    }
+});
 
 function showMsg(el, text, type) {
     el.textContent = text;
